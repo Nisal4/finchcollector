@@ -6,3 +6,7 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def finches_index(request):
+    return render(request, 'finches/index.html')
+
