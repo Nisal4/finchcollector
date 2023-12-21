@@ -7,4 +7,18 @@
     <p>Size: {{ finch.size }}</p>
 </div>
 
+<h2>Status: {{ finch.feeding_status }}</h2>
+
+<h2>Feedings</h2>
+{% for feeding in feedings %}
+    <p>{{ feeding.meal }} on {{ feeding.date }}</p>
+{% endfor %}
+
+<h2>Add a Feeding</h2>
+<form method="post" action="{% url 'feeding_add' finch.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Feeding</button>
+</form>
+
 {% endblock %}

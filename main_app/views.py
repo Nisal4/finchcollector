@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Finch
+from .models import Finch, Feeding
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from .forms import FeedingForm
 # Create your views here.
 finches = [
     {"id": 1, "species": "Zebra Finch", "color": "Black and White", "size": "Small"},
@@ -38,3 +39,15 @@ class FinchDelete(DeleteView):
     model = Finch
     template_name = 'finches/finch_confirm_delete.html'
     success_url = reverse_lazy('finches_index')
+
+class FinchDetail(DetailView):
+    model = Finch
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['feedings'] = Feeding.objects.filter(finch=self.kwargs['pk'])
+        return context
+    
+class FeedingCreate(CreateView):
+    model = Feeding
+    form_class = FeedingForm
