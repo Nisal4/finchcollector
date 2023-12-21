@@ -10,11 +10,16 @@
           <span class="card-title">{{ finch.species }}</span>
           <p>Color: {{ finch.color }}</p>
           <p>Size: {{ finch.size }}</p>
-          <a href="{% url 'finch_detail' finch.id %}">View Details</a>
+          <div class="card-action">
+            <a href="{% url 'finch_detail' finch.id %}">View Details</a>
+            <a href="{% url 'finch_edit' finch.id %}">Edit</a>
+            <a href="{% url 'finch_delete' finch.id %}">Delete</a>
+          </div>
         </div>
       </div>
     </li>
   {% endfor %}
 </ul>
+<a  class="btn" href="{% url 'finch_add' %}">Add a Finch</a>
 
 {% endblock %}
